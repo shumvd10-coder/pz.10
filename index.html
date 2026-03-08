@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TableNow — умное бронирование столиков</title>
+
+    <!-- Подключение Foundation CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.9.0/dist/css/foundation.min.css">
+
+    <!-- Font Awesome для иконок -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Google Fonts для более эстетичного текста -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            color: #1e293b;
+            background-color: #f8fafc;
+            transition: opacity 0.5s ease;
+        }
+
+        /* Стили для фиксированной навигации */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+        }
+
+        .top-bar {
+            background: transparent;
+            padding: 0.8rem 0;
+        }
+
+        .top-bar .menu-text {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: #3b2b7c;
+            letter-spacing: -0.5px;
+        }
+
+        .top-bar .menu a {
+            color: #334155;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border-radius: 30px;
+            padding: 0.5rem 1rem;
+            margin: 0 0.2rem;
+        }
+
+        .top-bar .menu a:hover {
+            background: linear-gradient(135deg, #f0f2fe 0%, #e8eaf6 100%);
+            color: #3b2b7c;
+        }
+
+        .top-bar .button {
+            background: linear-gradient(135deg, #3b2b7c 0%, #5e4b9e 100%);
+            border: none;
+            border-radius: 30px;
+            padding: 0.6rem 1.5rem;
+            font-weight: 500;
+            box-shadow: 0 8px 15px rgba(59, 43, 124, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .top-bar .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 20px rgba(59, 43, 124, 0.3);
+            background: linear-gradient(135deg, #2d1f63 0%, #4a3a82 100%);
+        }
+
+        /* Герой-секция с красивым градиентом */
+        .hero-gradient {
+            background: radial-gradient(circle at 10% 20%, rgba(90, 60, 190, 0.1) 0%, transparent 30%),
+                radial-gradient(circle at 90% 50%, rgba(190, 60, 150, 0.1) 0%, transparent 40%),
+                linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 5rem 0 6rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-gradient::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><polygon fill="rgba(255,255,255,0.03)" points="0,100 100,0 100,100"/></svg>');
+            background-size: cover;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: white;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .hero-button {
+            background: white;
+            color: #3b2b7c;
+            border: none;
+            border-radius: 40px;
+            padding: 1rem 2.5rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            margin-right: 1rem;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .hero-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.25);
+            background: #f8f9fa;
+        }
+
+        .hero-button-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 40px;
+            padding: 1rem 2.5rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .hero-button-outline:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Общие стили секций */
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-alt {
+            background: white;
+            box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.02);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: #64748b;
+            font-weight: 300;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+        }
+
+        /* Карточки преимуществ */
+        .feature-card {
+            background: white;
+            border-radius: 24px;
+            padding: 2rem;
+            height: 100%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(226, 232, 240, 0.6);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgba(102, 126, 234, 0.25);
+            border-color: rgba(102, 126, 234, 0.3);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #f0f2fe 0%, #e8eaf6 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+        }
+
+        .feature-icon i {
+            font-size: 2rem;
+            color: #3b2b7c;
+        }
+
+        .feature-card h4 {
+            font-weight: 600;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #1e293b;
+        }
+
+        .feature-card p {
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        /* Секция "О проекте" */
+        .about-image {
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 30px 40px -20px rgba(0, 0, 0, 0.3);
+            border: 5px solid white;
+        }
+
+        .about-list {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .about-list li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .about-list i {
+            color: #3b2b7c;
+            background: #f0f2fe;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            margin-right: 1rem;
+        }
+
+        /* Шаги */
+        .step-card {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+            height: 100%;
+            border: 1px solid rgba(226, 232, 240, 0.6);
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Футер */
+        .footer {
+            background: #0f172a;
+            color: #cbd5e1;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer h5 {
+            color: white;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer a {
+            color: #cbd5e1;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .footer .menu a {
+            color: #cbd5e1;
+            background: transparent;
+            padding-left: 0;
+        }
+
+        .footer .menu a:hover {
+            background: transparent;
+            color: white;
+        }
+
+        .social-buttons .button {
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.5rem;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .social-buttons .button:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transform: translateY(-3px);
+        }
+
+        .footer hr {
+            background: rgba(255, 255, 255, 0.1);
+            margin: 2rem 0;
+        }
+
+        /* Стили для битых ссылок */
+        .broken-link {
+            cursor: pointer;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 640px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .hero-button,
+            .hero-button-outline {
+                display: block;
+                width: 100%;
+                margin: 0.5rem 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="site-header">
+        <div class="grid-container">
+            <div class="top-bar">
+                <div class="top-bar-left">
+                    <ul class="menu">
+                        <li class="menu-text">TableNow</li>
+                        <li><a href="index.html#about" class="nav-link">О проекте</a></li>
+                        <li><a href="index.html#features" class="nav-link">Преимущества</a></li>
+                        <li><a href="index.html#how-it-works" class="nav-link">Как это работает</a></li>
+                        <li><a href="contacts.html" class="nav-link">Контакты</a></li>
+                        <li><a href="faq.html" class="nav-link">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="top-bar-right">
+                    <ul class="menu">
+                        <li><a href="#" class="button broken-link">Войти</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ГЕРОЙ-СЕКЦИЯ -->
+    <div class="hero-gradient">
+        <div class="grid-container">
+            <div class="grid-x grid-padding-x align-center text-center">
+                <div class="cell large-8">
+                    <h1 class="hero-title">Найди свой идеальный столик за минуту</h1>
+                    <p class="hero-subtitle">TableNow — умный сервис бронирования с чатом, фильтрами и мгновенным
+                        подтверждением</p>
+                    <div>
+                        <a href="#" class="hero-button broken-link"><i class="fas fa-calendar-check"></i> Найти столик</a>
+                        <a href="index.html#about" class="hero-button-outline"><i class="fas fa-play"></i> Как это работает</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- СЕКЦИЯ "О ПРОЕКТЕ" (id для навигации) -->
+    <div id="about" class="section">
+        <div class="grid-container">
+            <div class="grid-x grid-padding-x align-middle">
+                <div class="cell large-6">
+                    <h2 class="section-title">О сервисе TableNow</h2>
+                    <p class="lead">Мы объединяем лучшие рестораны и гостей, которые ценят своё время.</p>
+                    <p>Вдохновляясь лучшими практиками конкурентов (быстрый поиск как в Яндекс.Еде, детальные фильтры
+                        как в 2ГИС, система доверия как в TripAdvisor), мы создали сервис, который решает главные
+                        проблемы бронирования.</p>
+
+                    <ul class="about-list">
+                        <li><i class="fas fa-check"></i> Мгновенное подтверждение без звонков</li>
+                        <li><i class="fas fa-check"></i> Чат с рестораном для особых пожеланий</li>
+                        <li><i class="fas fa-check"></i> Умные фильтры: парковка, Wi-Fi, веранда, тип кухни</li>
+                        <li><i class="fas fa-check"></i> Напоминания о брони и лёгкая отмена</li>
+                        <li><i class="fas fa-check"></i> Персональные рекомендации</li>
+                    </ul>
+                </div>
+                <div class="cell large-6">
+                    <div class="about-image">
+                        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Ресторан" style="width: 100%; height: auto; display: block;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- СЕКЦИЯ ПРЕИМУЩЕСТВ (id для навигации) -->
+    <div id="features" class="section section-alt">
+        <div class="grid-container">
+            <h2 class="section-title text-center">Наши преимущества</h2>
+            <p class="section-subtitle text-center">Всё, что нужно для идеального вечера — в одном приложении</p>
+
+            <div class="grid-x grid-padding-x small-up-1 medium-up-2 large-up-3">
+                <div class="cell">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h4>Молниеносный поиск</h4>
+                        <p>Находите свободные столики за секунды благодаря оптимизированным алгоритмам</p>
+                    </div>
+                </div>
+                <div class="cell">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h4>Чат с рестораном</h4>
+                        <p>Обсудите детали, особые пожелания или измените бронь без звонков</p>
+                    </div>
+                </div>
+                <div class="cell">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <h4>Напоминания</h4>
+                        <p>Мы пришлём уведомление за 2 часа, чтобы вы ничего не забыли</p>
+                    </div>
+                </div>
+                <div class="cell">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-sliders-h"></i>
+                        </div>
+                        <h4>Умные фильтры</h4>
+                        <p>Ищите по кухне, цене, наличию веранды, парковке и Wi-Fi</p>
+                    </div>
+                </div>
+                <div class="cell">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4>Рекомендации</h4>
+                        <p>Система предлагает рестораны на основе ваших предпочтений</p>
+                    </div>
+                </div>
+                <div class="cell">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h4>Гарантия места</h4>
+                        <p>Ваш столик будет ждать вас — подтверждение от ресторана в реальном времени</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- СЕКЦИЯ "КАК ЭТО РАБОТАЕТ" (id для навигации) -->
+    <div id="how-it-works" class="section">
+        <div class="grid-container">
+            <h2 class="section-title text-center">Как это работает</h2>
+            <p class="section-subtitle text-center">Три простых шага до вкусного вечера</p>
+
+            <div class="grid-x grid-padding-x align-center">
+                <div class="cell medium-4">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <h4>Выберите ресторан</h4>
+                        <p>Используйте фильтры, чтобы найти идеальное место с нужной кухней и атмосферой</p>
+                    </div>
+                </div>
+                <div class="cell medium-4">
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <h4>Выберите время</h4>
+                        <p>Посмотрите доступные слоты в удобной сетке и забронируйте подходящее</p>
+                    </div>
+                </div>
+                <div class="cell medium-4">
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h4>Подтвердите</h4>
+                        <p>Получите мгновенное подтверждение и напоминание — столик ждёт вас</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ФУТЕР -->
+    <div class="footer">
+        <div class="grid-container">
+            <div class="grid-x grid-padding-x">
+                <div class="cell medium-4">
+                    <h5>TableNow</h5>
+                    <p>Умное бронирование столиков в ресторанах. Быстро, удобно, надёжно.</p>
+                    <div class="social-buttons">
+                        <a href="#" class="button broken-link"><i class="fab fa-vk"></i></a>
+                        <a href="#" class="button broken-link"><i class="fab fa-telegram-plane"></i></a>
+                        <a href="#" class="button broken-link"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="cell medium-2">
+                    <h5>Навигация</h5>
+                    <ul class="menu vertical">
+                        <li><a href="index.html#about" class="footer-link">О проекте</a></li>
+                        <li><a href="index.html#features" class="footer-link">Преимущества</a></li>
+                        <li><a href="index.html#how-it-works" class="footer-link">Как это работает</a></li>
+                        <li><a href="#" class="footer-link broken-link">Блог</a></li>
+                    </ul>
+                </div>
+                <div class="cell medium-3">
+                    <h5>Контакты</h5>
+                    <ul class="menu vertical">
+                        <li><i class="fas fa-phone"></i> +7 (999) 123-45-67</li>
+                        <li><i class="fas fa-envelope"></i> hello@tablenow.ru</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Москва, ул. Тверская, 1</li>
+                    </ul>
+                </div>
+                <div class="cell medium-3">
+                    <h5>Поддержка</h5>
+                    <ul class="menu vertical">
+                        <li><a href="faq.html" class="footer-link">FAQ</a></li>
+                        <li><a href="#" class="footer-link broken-link">Пользовательское соглашение</a></li>
+                        <li><a href="#" class="footer-link broken-link">Политика конфиденциальности</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="grid-x grid-padding-x">
+                <div class="cell text-center">
+                    <p class="subheader" style="color: #64748b;">© 2025 TableNow. Все права защищены. Сделано с ❤️ для
+                        гурманов</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Подключаем jQuery и Foundation JS для работы sticky и других интерактивных элементов -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.9.0/dist/js/foundation.min.js"></script>
+
+    <!-- Скрипт для плавных переходов и обработки ссылок -->
+    <script>
+        $(document).ready(function () {
+            $(document).foundation();
+
+            // Плавное появление страницы
+            $('body').css('opacity', '0');
+            $('body').animate({ opacity: 1 }, 600);
+
+            // Функция плавного перехода на другую страницу
+            function smoothTransition(url) {
+                $('body').animate({ opacity: 0 }, 400, function() {
+                    window.location.href = url;
+                });
+            }
+
+            // Функция плавного скролла
+            function smoothScroll(target) {
+                $('html, body').stop().animate({
+                    scrollTop: $(target).offset().top - 80
+                }, 800);
+            }
+
+            // Обработка кликов по рабочим ссылкам
+            $('a.nav-link, a.footer-link').on('click', function(e) {
+                var href = $(this).attr('href');
+                
+                // Если ссылка ведет на другую страницу
+                if (href === 'contacts.html' || href === 'faq.html' || href === 'index.html') {
+                    e.preventDefault();
+                    smoothTransition(href);
+                }
+                
+                // Если ссылка с якорем на этой же странице
+                if (href.includes('#')) {
+                    e.preventDefault();
+                    var anchor = href.split('#')[1];
+                    if ($('#' + anchor).length) {
+                        smoothScroll('#' + anchor);
+                    } else {
+                        // Если якорь не найден (например, на другой странице)
+                        smoothTransition(href);
+                    }
+                }
+            });
+
+            // Обработка битых ссылок (переход на 404)
+            $('.broken-link').on('click', function(e) {
+                e.preventDefault();
+                smoothTransition('404.html');
+            });
+
+            // Обработка кликов по кнопкам в герой-секции
+            $('.hero-button, .hero-button-outline').on('click', function(e) {
+                var href = $(this).attr('href');
+                
+                if ($(this).hasClass('broken-link')) {
+                    e.preventDefault();
+                    smoothTransition('404.html');
+                } else if (href && href.includes('#')) {
+                    e.preventDefault();
+                    var anchor = href.split('#')[1];
+                    if ($('#' + anchor).length) {
+                        smoothScroll('#' + anchor);
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

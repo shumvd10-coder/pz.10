@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ | TableNow — ответы на вопросы</title>
+
+    <!-- Подключение Foundation CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.9.0/dist/css/foundation.min.css">
+
+    <!-- Font Awesome для иконок -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            color: #1e293b;
+            background-color: #f8fafc;
+        }
+
+        /* Стили для фиксированной навигации */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+        }
+
+        .top-bar {
+            background: transparent;
+            padding: 0.8rem 0;
+        }
+
+        .top-bar .menu-text {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: #3b2b7c;
+            letter-spacing: -0.5px;
+        }
+
+        .top-bar .menu a {
+            color: #334155;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border-radius: 30px;
+            padding: 0.5rem 1rem;
+            margin: 0 0.2rem;
+        }
+
+        .top-bar .menu a:hover {
+            background: linear-gradient(135deg, #f0f2fe 0%, #e8eaf6 100%);
+            color: #3b2b7c;
+        }
+
+        .top-bar .button {
+            background: linear-gradient(135deg, #3b2b7c 0%, #5e4b9e 100%);
+            border: none;
+            border-radius: 30px;
+            padding: 0.6rem 1.5rem;
+            font-weight: 500;
+            box-shadow: 0 8px 15px rgba(59, 43, 124, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .top-bar .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 20px rgba(59, 43, 124, 0.3);
+            background: linear-gradient(135deg, #2d1f63 0%, #4a3a82 100%);
+        }
+
+        /* Стили для страницы FAQ */
+        .page-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .page-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-alt {
+            background: white;
+        }
+
+        .section-light {
+            background: #f8fafc;
+        }
+
+        /* Стили для аккордеона Foundation */
+        .accordion-container {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(226, 232, 240, 0.6);
+            margin-bottom: 3rem;
+        }
+
+        .category-header {
+            background: linear-gradient(135deg, #f0f2fe 0%, #e8eaf6 100%);
+            padding: 1.2rem 2rem;
+            border-bottom: 2px solid rgba(59, 43, 124, 0.2);
+        }
+
+        .category-header h3 {
+            margin: 0;
+            color: #3b2b7c;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .category-header i {
+            font-size: 1.5rem;
+        }
+
+        .accordion {
+            background: white;
+        }
+
+        .accordion-item {
+            border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+        }
+
+        .accordion-item:last-child {
+            border-bottom: none;
+        }
+
+        .accordion-title {
+            background: white;
+            color: #1e293b;
+            font-size: 1.1rem;
+            font-weight: 500;
+            padding: 1.3rem 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .accordion-title:hover {
+            background: linear-gradient(135deg, #f0f2fe 0%, #e8eaf6 100%);
+            color: #3b2b7c;
+        }
+
+        .accordion-title::before {
+            color: #3b2b7c;
+            right: 2rem;
+        }
+
+        .accordion-content {
+            background: #f8fafc;
+            padding: 1.5rem 2rem;
+            border-top: 1px solid rgba(226, 232, 240, 0.6);
+        }
+
+        .accordion-content p {
+            margin-bottom: 0;
+            color: #475569;
+            line-height: 1.7;
+        }
+
+        .accordion-content ul {
+            margin-left: 1.2rem;
+            color: #475569;
+        }
+
+        .accordion-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Карточки категорий */
+        .category-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            height: 100%;
+            border: 1px solid rgba(226, 232, 240, 0.6);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px -12px rgba(102, 126, 234, 0.25);
+            border-color: #667eea;
+        }
+
+        .category-card.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .category-card.active .category-icon {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .category-card.active .category-icon i {
+            color: white;
+        }
+
+        .category-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #f0f2fe 0%, #e8eaf6 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .category-icon i {
+            font-size: 2rem;
+            color: #3b2b7c;
+        }
+
+        .category-card h4 {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .category-card p {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .category-card.active p {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Блок "Остались вопросы?" */
+        .contact-cta {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 30px;
+            padding: 3rem;
+            color: white;
+            text-align: center;
+        }
+
+        .contact-cta h3 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .contact-cta p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            background: white;
+            color: #3b2b7c;
+            border: none;
+            border-radius: 40px;
+            padding: 1rem 2.5rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-decoration: none;
+            margin: 0 0.5rem;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.2);
+            background: #f8f9fa;
+            color: #2d1f63;
+        }
+
+        .cta-button-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 40px;
+            padding: 1rem 2.5rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-decoration: none;
+            margin: 0 0.5rem;
+        }
+
+        .cta-button-outline:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: white;
+            color: white;
+        }
+
+        /* Поиск */
+        .search-box {
+            max-width: 500px;
+            margin: 0 auto 3rem;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 1.2rem 1.5rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .search-box i {
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 1.2rem;
+        }
+
+        /* Футер */
+        .footer {
+            background: #0f172a;
+            color: #cbd5e1;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer h5 {
+            color: white;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer a {
+            color: #cbd5e1;
+            transition: all 0.2s ease;
+        }
+
+        .footer a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .footer .menu a {
+            color: #cbd5e1;
+            background: transparent;
+            padding-left: 0;
+        }
+
+        .footer .menu a:hover {
+            background: transparent;
+            color: white;
+        }
+
+        .social-buttons .button {
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.5rem;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .social-buttons .button:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transform: translateY(-3px);
+        }
+
+        .footer hr {
+            background: rgba(255, 255, 255, 0.1);
+            margin: 2rem 0;
+        }
+
+        /* Активное состояние меню */
+        .active-page a {
+            background: linear-gradient(135deg, #f0f2fe 0%, #e8eaf6 100%);
+            color: #3b2b7c !important;
+        }
+
+        @media (max-width: 640px) {
+            .page-title {
+                font-size: 2.2rem;
+            }
+            
+            .cta-button, .cta-button-outline {
+                display: block;
+                width: 100%;
+                margin: 0.5rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ШАПКА (с активным пунктом FAQ) -->
+    <div class="site-header">
+        <div class="grid-container">
+            <div class="top-bar">
+                <div class="top-bar-left">
+                    <ul class="menu">
+                        <li class="menu-text">TableNow</li>
+                        <li><a href="index.html#about">О проекте</a></li>
+                        <li><a href="index.html#features">Преимущества</a></li>
+                        <li><a href="index.html#how-it-works">Как это работает</a></li>
+                        <li><a href="contacts.html">Контакты</a></li>
+                        <li class="active-page"><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="top-bar-right">
+                    <ul class="menu">
+                        <li><a href="#" class="button">Войти</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ЗАГОЛОВОК СТРАНИЦЫ -->
+    <div class="page-header">
+        <div class="grid-container">
+            <h1 class="page-title">Часто задаваемые вопросы</h1>
+            <p class="page-subtitle">Найдите ответы на самые популярные вопросы о сервисе TableNow</p>
+        </div>
+    </div>
+
+    <!-- ПОИСК -->
+    <div class="section" style="padding: 2rem 0 0;">
+        <div class="grid-container">
+            <div class="search-box">
+                <input type="text" placeholder="Поиск по вопросам..." id="faqSearch">
+                <i class="fas fa-search"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- КАТЕГОРИИ ВОПРОСОВ (КЛИКАБЕЛЬНЫЕ) -->
+    <div class="section" style="padding: 2rem 0;">
+        <div class="grid-container">
+            <div class="grid-x grid-padding-x align-center">
+                <div class="cell medium-3">
+                    <div class="category-card" data-category="registration">
+                        <div class="category-icon">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <h4>Регистрация</h4>
+                        <p>Вопросы о создании аккаунта и настройках профиля</p>
+                    </div>
+                </div>
+                <div class="cell medium-3">
+                    <div class="category-card" data-category="booking">
+                        <div class="category-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <h4>Бронирование</h4>
+                        <p>Как забронировать, изменить или отменить столик</p>
+                    </div>
+                </div>
+                <div class="cell medium-3">
+                    <div class="category-card" data-category="payment">
+                        <div class="category-icon">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <h4>Оплата</h4>
+                        <p>Способы оплаты, возвраты и комиссии</p>
+                    </div>
+                </div>
+                <div class="cell medium-3">
+                    <div class="category-card" data-category="security">
+                        <div class="category-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h4>Безопасность</h4>
+                        <p>Защита данных и правила использования</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ОСНОВНОЙ БЛОК FAQ С АККОРДЕОНАМИ ПО КАТЕГОРИЯМ -->
+    <div class="section section-alt" id="faq-sections">
+        <div class="grid-container">
+            <div class="grid-x grid-padding-x">
+                <div class="cell large-10 large-offset-1">
+                    
+                    <!-- КАТЕГОРИЯ: РЕГИСТРАЦИЯ -->
+                    <div class="accordion-container" data-category="registration">
+                        <div class="category-header">
+                            <h3><i class="fas fa-user-plus"></i> Регистрация и аккаунт</h3>
+                        </div>
+                        
+                        <ul class="accordion" data-accordion data-allow-all-closed="true" data-multi-expand="false">
+                            <li class="accordion-item" data-accordion-item>
+                                <a href="#" class="accordion-title">Как зарегистрироваться в TableNow?</a>
+                                <div class="accordion-content" data-tab-content>
+                                    <p>Для регистрации нажмите кнопку "Войти" в правом верхнем углу и выберите "Создать аккаунт". Вы можете зарегистрироваться по email или через социальные сети (ВКонтакте, Telegram). После подтверждения email вы сможете сразу начать бронировать столики.</p>
+                                </div>
+                            </li>
+                            
+                            <li class="accordion-item" data-accordion-item>
+                                <a href="#" class="accordion-title">Нужно ли подтверждать email?</a>
+                                <div class="accordion-content" data-tab-content>
+                                    <p>Да, подтверждение email необходимо для безопасности вашего аккаунта и получения уведомлений о бронированиях. На указанный адрес приходит письмо со ссылкой для подтверждения. Если письмо не пришло, проверьте папку "Спам" или запросите повторную отправку.</p>
+                                </div>
+                            </li>
+                            
+                            <li class="accordion-item" data-accordion-item>
+                                <a href="#" class="accordion-title">Можно ли удалить аккаунт?</a>
+                                <div class="accordion-content" data-tab-content>
+                                    <p>Да, вы можете удалить аккаунт в настройках профиля. Все ваши данные будут удалены в течение 30 дней. Если вы передумаете, в течение этого срока можно восстановить аккаунт, обратившись в поддержку.</p>
+                                </div>
+                            </li>
+
+                            <li class="accordion-item" data-accordion-item>
+                                <a href="#" class="accordion-title">Как изменить личные данные в профиле?</a>
+                                <div class="accordion-content" data-tab-content>
+                                    <p>Зайдите в "Личный кабинет" → "Настройки профиля". Там вы можете изменить имя, телефон, фото профиля и другие данные. Для смены email потребуется подтверждение нового адреса.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- КАТЕГОРИЯ: БРОНИРОВАНИЕ -->
+                    <div class="accordion-container" data-category="booking">
+                        <div class="category-header">
+                            <h3><i class="fas fa-calendar-alt"></i> Бронирование</h3>
+                        </div>
+                        
+                        <ul class="accordion" data-accordion data-allow-all-closed="true" data-multi-expand="false">
+                            <li class="accordion-item" data-accordion-item>
+                                <a href="#" class="accordion-title">Как забронировать столик?</a>
+                                <div class="accordion-content" data-tab-content>
+                                    <p>Процесс бронирования очень прост:</p>
+                                    <ol>
+                                        <li>Выберите ресторан на главной странице или через поиск</li>
+                                        <li>Укажите дату, время и количество гостей</li>
+                                        <li>Выберите подходящий столик на схеме зала</li>
+                                        <li>Подтвердите бронирование</li>
+                                    </ol>
+                                    <p>После этого вы получите мгновенное подтверждение на email и в SMS.</p>
+                                </div>
+                            </li>
+                            
+                            <li class="accordion-item" data-accordion-item>
+                                <a href="#" class="accordion-title">Можно ли изменить время или дату брони?</a>
+                                <div class="accordion-content" data-tab-content>
+                                    <p>Да, вы можете изменить бронирование в разделе "Мои брони". Если до визита осталось более 2 часов, изменения доступны без дополнительных подтверждений. Если меньше — рекомендуем связаться с рестораном через чат в приложении.</p>
+                                </div>
+                            </li>
+                            
+                            <li class="accordion-item" data-accordion-item>
+                                <a href="#" class="accordion-title">Как отменить бронь?</a>
+                                <div class="accordion-content" data-tab-content>
+                                    <p>В разделе "Мои брони" нажмите кнопку "Отменить" рядом с нужным бронированием. Мы рекомендуем отменять заранее, чтобы ресторан мог предложить освободившееся время другим гостям. При отмене менее чем за 1 час может применяться штраф (информация указывается при бронировании).</p>
+                                </div>
+                            </li>
+
+                            <li class="accordion-item" data-accordion-item>
+                                <a href="#" class="accordion-title">Что делать, если я опоздаю?</a>
+                                <div class="accordion-content" data-tab-content>
+                                    <p>Если вы понимаете, что опаздываете, предупредите ресторан через чат в приложении. Обычно ресторан держит столик 15-20 минут. В случае длительного опоздания бронь может быть аннулирована.</p>
+                                </div>
+                            </li>
+
+                            <li class="accordion-item" data-accordion-item>
+                                <a href="#" class="accordion-title">Можно ли забронировать столик для компании больше 6 человек?</a>
+                                <div class="accordion-content" data-tab-content>
+                                    <p>Да, для больших компаний есть возможность забронировать отдельную зону или VIP-зал. Выберите соответствующую опцию при бронировании. Для мероприятий от 10 человек рекомендуем связаться с рестораном напрямую через чат для обсуждения специальных условий.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- КАТЕГОРИЯ: ОПЛАТА -->
+                    <div class="accordion-container" data-category="payment">
+                        <div class="category-header">
+                            <h3><i class="fas fa-credit-card"></i> Оплата</h3>
+                        </div>
+                        
+                        <ul class="accordion" data-accordion data-allow-all-closed="true" data-multi-expand="false">
+                            <li class="accordion-item" data-accordion-item>
+                                <a href="#" class="accordion-title">Какие способы оплаты доступны?</a>
+                                <div class="accordion-content" data-tab-content>
+                                    <p>Мы поддерживаем различные способы оплаты:</p>
+                                    <ul>
+                                        <li>Банковские карты (Visa, MasterCard, Мир)</li>
+                                        <li>Apple Pay и Google Pay</li>
+                                        <li>Наличные в ресторане</li>
+                                        <li>Корпоративные счета для юрлиц</li>
+                                    </ul>
+                                    <p>Способ оплаты можно выбрать при бронировании или оплатить непосредственно в ресторане.</p>
+                                </div>
+                            </li>
+                            
+                            <li class="accordion-item" data-accordion-item>
+                                <a href="#" class="accordion-title">Нужно ли платить за бронирование?</a>
+                                <div class="accordion-content" data-tab-content>
+                                    <p>Само бронирование бесплатно. Вы платите только за заказ в ресторане. В некоторых случаях (для популярных ресторанов в высокий сезон) может требоваться предоплата или депозит — эта информация всегда указывается при бронировании.</p>
+                                </div>
+                            </li>
+                            
+                            <li class="accordion-item" data-accordion-item>
+                                <a href="#" class="accordion-title">Как вернуть предоплату при отмене?</a>
+                                <div class="accordion-content" data-tab-content>
+                                    <p>Если вы отменили бронь в установленный срок (обычно за 24 часа), предоплата автоматически возвращается на карту в течение 3-7 рабочих дней. При отмене позже указанного срока возврат осуществляется по решению ресторана — свяжитесь с поддержкой для помощи.</p>
+                                </div>
+                            </li>
+
+                            <li class="accordion-item" data-accordion-item>
+                                <a href="#" class="accordion-title">Есть ли комиссия за использование сервиса?</a>
+                                <div class="accordion-content" data-tab-content>
+                                    <p>Для гостей сервис полностью бесплатный. Рестораны оплачивают комиссию за каждое бронирование. Мы не взимаем никаких дополнительных платежей с пользователей.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- КАТЕГОРИЯ: БЕЗОПАСНОСТЬ -->
+                    <div class="accordion-container" data-category="security">
+                        <div class="category-header">
+                            <h3><i class="fas fa-shield-alt"></i> Безопасность и конфиденциальность</h3>
+                        </div>
+                        
+                        <ul class="accordion" data-accordion data-allow-all-closed="true" data-multi-expand="false">
+                            <li class="accordion-item" data-accordion-item>
+                                <a href="#" class="accordion-title">Как защищены мои личные данные?</a>
+                                <div class="accordion-content" data-tab-content>
+                                    <p>Мы используем современные методы шифрования (SSL/TLS) для защиты данных. Ваша информация хранится на защищенных серверах и не передается третьим лицам без вашего согласия. Подробнее читайте в Политике конфиденциальности.</p>
+                                </div>
+                            </li>
+                            
+                            <li class="accordion-item" data-accordion-item>
+                                <a href="#" class="accordion-title">Безопасно ли вводить данные карты?</a>
+                                <div class="accordion-content" data-tab-content>
+                                    <p>Да, мы не храним данные ваших карт. Все платежи обрабатываются через сертифицированных платежных партнеров, соответствующих стандарту PCI DSS. Данные карты вводятся на защищенной странице платежного шлюза.</p>
+                                </div>
+                            </li>
+                            
+                            <li class="accordion-item" data-accordion-item>
+                                <a href="#" class="accordion-title">Что делать при подозрительной активности в аккаунте?</a>
+                                <div class="accordion-content" data-tab-content>
+                                    <p>Если вы заметили необычную активность (неавторизованные бронирования, изменения в профиле), немедленно:</p>
+                                    <ol>
+                                        <li>Смените пароль в настройках</li>
+                                        <li>Свяжитесь со службой поддержки через форму на сайте</li>
+                                        <li>Временно заблокируйте аккаунт через настройки безопасности</li>
+                                    </ol>
+                                </div>
+                            </li>
+
+                            <li class="accordion-item" data-accordion-item>
+                                <a href="#" class="accordion-title">Можно ли использовать двухфакторную аутентификацию?</a>
+                                <div class="accordion-content" data-tab-content>
+                                    <p>Да, в настройках безопасности вы можете включить двухфакторную аутентификацию. Подтверждение входа будет приходить в Telegram или по SMS. Это значительно повышает безопасность вашего аккаунта.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- БЛОК "ОСТАЛИСЬ ВОПРОСЫ?" -->
+    <div class="section">
+        <div class="grid-container">
+            <div class="contact-cta">
+                <h3>Остались вопросы?</h3>
+                <p>Не нашли ответ на свой вопрос? Свяжитесь с нами любым удобным способом</p>
+                <div>
+                    <a href="contacts.html" class="cta-button">
+                        <i class="fas fa-envelope"></i> Написать нам
+                    </a>
+                    <a href="#" class="cta-button-outline">
+                        <i class="fas fa-phone"></i> Заказать звонок
+                    </a>
+                </div>
+                <div style="margin-top: 2rem; opacity: 0.9;">
+                    <p>Или напишите в Telegram: <strong>@tablenow_support</strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ФУТЕР -->
+    <div class="footer">
+        <div class="grid-container">
+            <div class="grid-x grid-padding-x">
+                <div class="cell medium-4">
+                    <h5>TableNow</h5>
+                    <p>Умное бронирование столиков в ресторанах. Быстро, удобно, надёжно.</p>
+                    <div class="social-buttons">
+                        <a href="#" class="button"><i class="fab fa-vk"></i></a>
+                        <a href="#" class="button"><i class="fab fa-telegram-plane"></i></a>
+                        <a href="#" class="button"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="cell medium-2">
+                    <h5>Навигация</h5>
+                    <ul class="menu vertical">
+                        <li><a href="index.html#about">О проекте</a></li>
+                        <li><a href="index.html#features">Преимущества</a></li>
+                        <li><a href="index.html#how-it-works">Как это работает</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="cell medium-3">
+                    <h5>Контакты</h5>
+                    <ul class="menu vertical">
+                        <li><i class="fas fa-phone"></i> +7 (999) 123-45-67</li>
+                        <li><i class="fas fa-envelope"></i> hello@tablenow.ru</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Москва, ул. Тверская, 1</li>
+                    </ul>
+                </div>
+                <div class="cell medium-3">
+                    <h5>Поддержка</h5>
+                    <ul class="menu vertical">
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="#">Пользовательское соглашение</a></li>
+                        <li><a href="#">Политика конфиденциальности</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="grid-x grid-padding-x">
+                <div class="cell text-center">
+                    <p class="subheader" style="color: #64748b;">© 2025 TableNow. Все права защищены. Сделано с ❤️ для гурманов</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Подключаем jQuery и Foundation JS -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.9.0/dist/js/foundation.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            // Инициализация Foundation
+            $(document).foundation();
+            
+            // Поиск по вопросам (простой фильтр)
+            $('#faqSearch').on('keyup', function() {
+                var searchText = $(this).val().toLowerCase();
+                
+                $('.accordion-item').each(function() {
+                    var question = $(this).find('.accordion-title').text().toLowerCase();
+                    var answer = $(this).find('.accordion-content').text().toLowerCase();
+                    
+                    if (question.indexOf(searchText) > -1 || answer.indexOf(searchText) > -1) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+                
+                // Показывать/скрывать заголовки категорий в зависимости от видимых вопросов
+                $('.accordion-container').each(function() {
+                    var hasVisibleItems = $(this).find('.accordion-item:visible').length > 0;
+                    if (hasVisibleItems) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            });
+            
+            // Клик по карточкам категорий - скролл к соответствующей категории
+            $('.category-card').on('click', function() {
+                var category = $(this).data('category');
+                
+                // Убрать активный класс у всех карточек
+                $('.category-card').removeClass('active');
+                
+                // Добавить активный класс текущей карточке
+                $(this).addClass('active');
+                
+                // Найти секцию с нужной категорией и плавно проскроллить к ней
+                $('html, body').animate({
+                    scrollTop: $('[data-category="' + category + '"]').offset().top - 100
+                }, 500);
+                
+                // Подсветить соответствующую категорию
+                $('.accordion-container').css('border', '1px solid rgba(226, 232, 240, 0.6)');
+                $('[data-category="' + category + '"]').css('border', '2px solid #667eea');
+            });
+            
+            // Плавный скролл для ссылок на якоря
+            $('a[href^="#"]').on('click', function(event) {
+                var target = $(this.getAttribute('href'));
+                if (target.length) {
+                    event.preventDefault();
+                    $('html, body').stop().animate({
+                        scrollTop: target.offset().top - 80
+                    }, 800);
+                }
+            });
+            
+            // Обработка клика по кнопке "Заказать звонок"
+            $('.cta-button-outline').on('click', function(e) {
+                e.preventDefault();
+                alert('Спасибо! Наш менеджер свяжется с вами в ближайшее время.');
+            });
+        });
+    </script>
+</body>
+</html>

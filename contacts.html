@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакты | TableNow — свяжитесь с нами</title>
+
+    <!-- Подключение Foundation CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.9.0/dist/css/foundation.min.css">
+
+    <!-- Font Awesome для иконок -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            color: #1e293b;
+            background-color: #f8fafc;
+        }
+
+        /* Стили для фиксированной навигации (такие же как в index.html) */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+        }
+
+        .top-bar {
+            background: transparent;
+            padding: 0.8rem 0;
+        }
+
+        .top-bar .menu-text {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: #3b2b7c;
+            letter-spacing: -0.5px;
+        }
+
+        .top-bar .menu a {
+            color: #334155;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border-radius: 30px;
+            padding: 0.5rem 1rem;
+            margin: 0 0.2rem;
+        }
+
+        .top-bar .menu a:hover {
+            background: linear-gradient(135deg, #f0f2fe 0%, #e8eaf6 100%);
+            color: #3b2b7c;
+        }
+
+        .top-bar .button {
+            background: linear-gradient(135deg, #3b2b7c 0%, #5e4b9e 100%);
+            border: none;
+            border-radius: 30px;
+            padding: 0.6rem 1.5rem;
+            font-weight: 500;
+            box-shadow: 0 8px 15px rgba(59, 43, 124, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .top-bar .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 20px rgba(59, 43, 124, 0.3);
+            background: linear-gradient(135deg, #2d1f63 0%, #4a3a82 100%);
+        }
+
+        /* Стили для страницы контактов */
+        .page-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .page-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-alt {
+            background: white;
+        }
+
+        .card {
+            background: white;
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(226, 232, 240, 0.6);
+            height: 100%;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px -12px rgba(102, 126, 234, 0.25);
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #f0f2fe 0%, #e8eaf6 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-icon i {
+            font-size: 1.8rem;
+            color: #3b2b7c;
+        }
+
+        .contact-form {
+            background: white;
+            border-radius: 30px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control {
+            border: 2px solid #e2e8f0;
+            border-radius: 15px;
+            padding: 0.75rem 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            outline: none;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .submit-button {
+            background: linear-gradient(135deg, #3b2b7c 0%, #5e4b9e 100%);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            padding: 1rem 2rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 20px rgba(59, 43, 124, 0.3);
+        }
+
+        .map-container {
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Футер (такой же как в index.html) */
+        .footer {
+            background: #0f172a;
+            color: #cbd5e1;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer h5 {
+            color: white;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer a {
+            color: #cbd5e1;
+            transition: all 0.2s ease;
+        }
+
+        .footer a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .footer .menu a {
+            color: #cbd5e1;
+            background: transparent;
+            padding-left: 0;
+        }
+
+        .footer .menu a:hover {
+            background: transparent;
+            color: white;
+        }
+
+        .social-buttons .button {
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.5rem;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .social-buttons .button:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transform: translateY(-3px);
+        }
+
+        .footer hr {
+            background: rgba(255, 255, 255, 0.1);
+            margin: 2rem 0;
+        }
+
+        /* Активное состояние меню */
+        .active-page a {
+            background: linear-gradient(135deg, #f0f2fe 0%, #e8eaf6 100%);
+            color: #3b2b7c !important;
+        }
+
+        @media (max-width: 640px) {
+            .page-title {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ШАПКА (такая же как на главной, но с активным пунктом "Контакты") -->
+    <div class="site-header">
+        <div class="grid-container">
+            <div class="top-bar">
+                <div class="top-bar-left">
+                    <ul class="menu">
+                        <li class="menu-text">TableNow</li>
+                        <li><a href="index.html#about">О проекте</a></li>
+                        <li><a href="index.html#features">Преимущества</a></li>
+                        <li><a href="index.html#how-it-works">Как это работает</a></li>
+                        <li class="active-page"><a href="contacts.html">Контакты</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="top-bar-right">
+                    <ul class="menu">
+                        <li><a href="#" class="button">Войти</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ЗАГОЛОВОК СТРАНИЦЫ -->
+    <div class="page-header">
+        <div class="grid-container">
+            <h1 class="page-title">Свяжитесь с нами</h1>
+            <p class="page-subtitle">Мы всегда рады вашим вопросам, предложениям и отзывам. Напишите нам, и мы ответим в ближайшее время!</p>
+        </div>
+    </div>
+
+    <!-- СЕКЦИЯ С КОНТАКТНОЙ ИНФОРМАЦИЕЙ -->
+    <div class="section">
+        <div class="grid-container">
+            <div class="grid-x grid-padding-x">
+                <div class="cell large-4 medium-6">
+                    <div class="card text-center">
+                        <div class="contact-icon" style="margin: 0 auto 1.5rem;">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h4>Адрес</h4>
+                        <p class="text-gray">Москва, ул. Тверская, 1<br>Бизнес-центр "Галерея", офис 305</p>
+                    </div>
+                </div>
+                <div class="cell large-4 medium-6">
+                    <div class="card text-center">
+                        <div class="contact-icon" style="margin: 0 auto 1.5rem;">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <h4>Телефон</h4>
+                        <p class="text-gray">+7 (999) 123-45-67<br>+7 (495) 234-56-78</p>
+                    </div>
+                </div>
+                <div class="cell large-4 medium-6">
+                    <div class="card text-center">
+                        <div class="contact-icon" style="margin: 0 auto 1.5rem;">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h4>Email</h4>
+                        <p class="text-gray">hello@tablenow.ru<br>support@tablenow.ru</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- СЕКЦИЯ С ФОРМОЙ ОБРАТНОЙ СВЯЗИ -->
+    <div class="section section-alt">
+        <div class="grid-container">
+            <div class="grid-x grid-padding-x">
+                <div class="cell large-6">
+                    <h2 class="section-title">Напишите нам</h2>
+                    <p class="lead">Заполните форму обратной связи, и мы свяжемся с вами в течение 24 часов.</p>
+                    
+                    <form id="feedbackForm" class="contact-form">
+                        <div class="grid-x grid-padding-x">
+                            <div class="cell small-12">
+                                <label class="form-label">Имя</label>
+                                <input type="text" class="form-control" placeholder="Ваше имя" required>
+                            </div>
+                            <div class="cell small-12">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control" placeholder="example@email.com" required>
+                            </div>
+                            <div class="cell small-12">
+                                <label class="form-label">Тема</label>
+                                <select class="form-control" required>
+                                    <option value="" disabled selected>Выберите тему</option>
+                                    <option>Предложение</option>
+                                    <option>Жалоба</option>
+                                    <option>Вопрос</option>
+                                    <option>Благодарность</option>
+                                    <option>Сотрудничество</option>
+                                </select>
+                            </div>
+                            <div class="cell small-12">
+                                <label class="form-label">Сообщение</label>
+                                <textarea class="form-control" rows="5" placeholder="Ваше сообщение..." required></textarea>
+                            </div>
+                            <div class="cell small-12">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" required>
+                                    <span>Соглашаюсь на обработку персональных данных</span>
+                                </label>
+                            </div>
+                            <div class="cell small-12">
+                                <button type="submit" class="submit-button">
+                                    <i class="fas fa-paper-plane"></i> Отправить отзыв
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="cell large-6">
+                    <h2 class="section-title">Мы на карте</h2>
+                    <p class="lead">Приходите к нам в офис или просто найдите ближайший ресторан-партнёр</p>
+                    
+                    <div class="map-container">
+                        <!-- Вставка карты через iframe (пример с Яндекс.Картами) -->
+                        <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3Aefd2b9e0e5d3e1b8c9b0e2f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8g9h0&amp;source=constructor" width="100%" height="400" frameborder="0" style="border:0;" allowfullscreen></iframe>
+                    </div>
+                    
+                    <div class="grid-x grid-padding-x mt-4">
+                        <div class="cell small-6">
+                            <h5><i class="fas fa-clock"></i> Часы работы</h5>
+                            <p>Пн-Пт: 9:00 - 20:00<br>Сб-Вс: 10:00 - 18:00</p>
+                        </div>
+                        <div class="cell small-6">
+                            <h5><i class="fas fa-subway"></i> Как добраться</h5>
+                            <p>Метро "Тверская", выход №3<br>5 минут пешком</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ФУТЕР -->
+    <div class="footer">
+        <div class="grid-container">
+            <div class="grid-x grid-padding-x">
+                <div class="cell medium-4">
+                    <h5>TableNow</h5>
+                    <p>Умное бронирование столиков в ресторанах. Быстро, удобно, надёжно.</p>
+                    <div class="social-buttons">
+                        <a href="#" class="button"><i class="fab fa-vk"></i></a>
+                        <a href="#" class="button"><i class="fab fa-telegram-plane"></i></a>
+                        <a href="#" class="button"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="cell medium-2">
+                    <h5>Навигация</h5>
+                    <ul class="menu vertical">
+                        <li><a href="index.html#about">О проекте</a></li>
+                        <li><a href="index.html#features">Преимущества</a></li>
+                        <li><a href="index.html#how-it-works">Как это работает</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="cell medium-3">
+                    <h5>Контакты</h5>
+                    <ul class="menu vertical">
+                        <li><i class="fas fa-phone"></i> +7 (999) 123-45-67</li>
+                        <li><i class="fas fa-envelope"></i> hello@tablenow.ru</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Москва, ул. Тверская, 1</li>
+                    </ul>
+                </div>
+                <div class="cell medium-3">
+                    <h5>Поддержка</h5>
+                    <ul class="menu vertical">
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="#">Пользовательское соглашение</a></li>
+                        <li><a href="#">Политика конфиденциальности</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="grid-x grid-padding-x">
+                <div class="cell text-center">
+                    <p class="subheader" style="color: #64748b;">© 2025 TableNow. Все права защищены. Сделано с ❤️ для гурманов</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Подключаем jQuery и Foundation JS -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.9.0/dist/js/foundation.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $(document).foundation();
+            
+            // Обработка отправки формы
+            $('#feedbackForm').on('submit', function(e) {
+                e.preventDefault();
+                alert('Спасибо за ваше сообщение! Мы свяжемся с вами в ближайшее время.');
+                this.reset();
+            });
+        });
+    </script>
+</body>
+</html>
